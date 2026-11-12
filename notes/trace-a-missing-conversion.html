@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to trace a missing conversion from click to report</title>
+  <meta name="description" content="A practical field guide to tracing one advertising conversion through its click identifier, callback, acceptance record and campaign report.">
+  <link rel="canonical" href="https://froggyads-cmd.github.io/froggyads-publishing-notes/notes/trace-a-missing-conversion.html">
+  <style>
+    body { margin: 0; color: #172333; background: #fbfcfe; font-family: system-ui, sans-serif; line-height: 1.65; }
+    main { max-width: 43rem; margin: auto; padding: 3rem 1.25rem; }
+    h1, h2 { line-height: 1.2; }
+    h1 { margin: .25rem 0 .75rem; font-size: clamp(2rem, 5vw, 3.2rem); }
+    h2 { margin: 2rem 0 .65rem; font-size: 1.4rem; }
+    a { color: #164d99; text-underline-offset: .15em; }
+    .byline { color: #45566b; margin: 0 0 1.75rem; }
+    ul { padding-inline-start: 1.35rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <article>
+      <header>
+        <h1>How to trace a missing conversion from click to report</h1>
+        <p class="byline">FroggyAds Insights</p>
+      </header>
+      <p>Start with one controlled conversion when a campaign report is missing an event you expected. A total can tell you that two systems disagree. A single event can show exactly where they started to disagree. Record the click time, the action time and the reporting time zone, then keep that case separate from routine traffic while you investigate.</p>
+
+      <h2>Follow the identifier through the visit</h2>
+      <p>Capture the click identifier at the first point you control and check that the same value is available when the test action completes. Redirects, consent choices and a change of domain can each affect which values survive the visit. Record the first and last observed values and compare them before you change any settings. The <a href="https://froggyads.com/conversion-tracking/">conversion tracking guide</a> describes the other evidence to retain, including the event definition and the record used to detect duplicates.</p>
+
+      <h2>Separate delivery from acceptance</h2>
+      <p>If the test produces a server callback, find the request and its response in your logs. Record the time and outcome, then look for a corresponding accepted event. A successful response shows that the receiver handled the request at the transport layer. The reporting system may still reject the event, ignore a duplicate or keep it outside an attribution window. The <a href="https://froggyads.com/postback-tracking/">postback tracking guide</a> explains how to preserve an event identifier through retries and check the downstream result.</p>
+      <p>Use a redacted reference in your investigation notes. Keep callback secrets, personal data and complete live URLs out of the shared case. If you replay the test, follow the documented retry behavior and verify that the same business event appears only once.</p>
+
+      <h2>Check the report on the same terms</h2>
+      <p>Once you have an accepted event, compare the report with the same time zone, campaign filter and outcome definition. An event counted on its conversion date can sit in a different row from a report grouped by click date. Approval and processing delays can move the apparent gap again. The <a href="https://froggyads.com/campaign-reporting-guide/">campaign reporting guide</a> explains how to compare source-level results with records from the tracker or the business.</p>
+      <ul>
+        <li>If the identifier disappears before the action, investigate the handoff that last held the original value.</li>
+        <li>If the callback arrives without an accepted event, inspect the recorded outcome and deduplication history.</li>
+        <li>If the event is accepted but absent from the report, compare date windows, filters and the event's reporting eligibility.</li>
+      </ul>
+      <p>Keep the first confirmed break and the evidence that supports it. Fix that handoff, then repeat the same controlled case and compare the new result before making a campaign decision.</p>
+    </article>
+  </main>
+</body>
+</html>
